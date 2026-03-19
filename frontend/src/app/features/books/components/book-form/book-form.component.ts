@@ -57,6 +57,10 @@ export class BookFormComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
+      coverImageUrl: [
+        "",
+        [Validators.pattern(/^https?:\/\/.+/i), Validators.maxLength(500)],
+      ],
       description: ["", [Validators.maxLength(2000)]],
       publicationDate: [null],
       genre: [""],
@@ -119,10 +123,13 @@ export class BookFormComponent implements OnInit {
     operation.pipe(takeUntil(this.destroy$)).subscribe({
       next: () => {
         this.saving = false;
+        const bookTitle = this.bookForm.value.title || "Book";
         this.notificationService.showSuccess(
           this.isEditMode
-            ? "Book updated successfully"
-            : "Book created successfully",
+            ? `Changes saved for "${bookTitle}".`
+            : `"${bookTitle}" created successfully.`,
+          4500,
+          this.isEditMode ? "Book updated" : "Book created"
         );
         this.router.navigate(["/books"]);
       },
@@ -138,6 +145,7 @@ export class BookFormComponent implements OnInit {
     return {
       title: formValue.title!,
       author: formValue.author!,
+      coverImageUrl: formValue.coverImageUrl || undefined,
       description: formValue.description || undefined,
       publicationDate: formValue.publicationDate
         ? new Date(formValue.publicationDate)
@@ -170,6 +178,9 @@ export class BookFormComponent implements OnInit {
   }
   get description() {
     return this.bookForm.get("description");
+  }
+  get coverImageUrl() {
+    return this.bookForm.get("coverImageUrl");
   }
   get isbn() {
     return this.bookForm.get("isbn");

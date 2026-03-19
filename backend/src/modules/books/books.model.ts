@@ -19,6 +19,23 @@ const bookSchema = new Schema<IBookDocument>(
       maxlength: [100, "Author cannot exceed 100 characters"],
       index: true,
     },
+    coverImageUrl: {
+      type: String,
+      trim: true,
+      maxlength: [500, "Cover image URL cannot exceed 500 characters"],
+      validate: {
+        validator: function (v: string) {
+          if (!v) return true;
+          try {
+            const url = new URL(v);
+            return url.protocol === "http:" || url.protocol === "https:";
+          } catch {
+            return false;
+          }
+        },
+        message: "Cover image URL must be a valid HTTP/HTTPS URL",
+      },
+    },
     description: {
       type: String,
       trim: true,

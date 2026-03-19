@@ -30,7 +30,7 @@
         <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
           <!-- Title -->
           <div class="sm:col-span-4">
-            <label for="title" class="block text-sm font-medium text-gray-700">
+            <label for="title" class="ui-label">
               Title *
             </label>
             <div class="mt-1">
@@ -38,7 +38,7 @@
                 type="text"
                 id="title"
                 formControlName="title"
-                class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                class="ui-input"
                 [class.border-red-300]="title?.invalid && title?.touched"
                 placeholder="Enter book title"
               />
@@ -51,7 +51,7 @@
 
           <!-- Author -->
           <div class="sm:col-span-3">
-            <label for="author" class="block text-sm font-medium text-gray-700">
+            <label for="author" class="ui-label">
               Author *
             </label>
             <div class="mt-1">
@@ -59,7 +59,7 @@
                 type="text"
                 id="author"
                 formControlName="author"
-                class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                class="ui-input"
                 [class.border-red-300]="author?.invalid && author?.touched"
                 placeholder="Enter author name"
               />
@@ -70,14 +70,43 @@
             </div>
           </div>
 
+          <!-- Cover Image URL -->
+          <div class="sm:col-span-6">
+            <label for="coverImageUrl" class="ui-label">Cover Image URL</label>
+            <div class="mt-1">
+              <input
+                type="url"
+                id="coverImageUrl"
+                formControlName="coverImageUrl"
+                class="ui-input"
+                [class.border-red-300]="coverImageUrl?.invalid && coverImageUrl?.touched"
+                placeholder="https://example.com/cover.jpg"
+              />
+            </div>
+            <p class="ui-field-caption">Use a public image URL (http/https)</p>
+            <div *ngIf="coverImageUrl?.invalid && coverImageUrl?.touched" class="mt-1 text-sm text-red-600">
+              <span *ngIf="coverImageUrl?.errors?.['pattern']">Enter a valid URL (http/https)</span>
+              <span *ngIf="coverImageUrl?.errors?.['maxlength']">URL cannot exceed 500 characters</span>
+            </div>
+
+            <div *ngIf="bookForm.value.coverImageUrl" class="mt-4">
+              <p class="ui-label mb-2">Preview</p>
+              <img
+                [src]="bookForm.value.coverImageUrl"
+                alt="Book cover preview"
+                class="h-40 w-28 rounded-lg border border-gray-200 object-cover"
+              />
+            </div>
+          </div>
+
           <!-- Genre -->
           <div class="sm:col-span-3">
-            <label for="genre" class="block text-sm font-medium text-gray-700">Genre</label>
+            <label for="genre" class="ui-label">Genre</label>
             <div class="mt-1">
               <select
                 id="genre"
                 formControlName="genre"
-                class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                class="ui-select"
               >
                 <option value="">Select a genre</option>
                 <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
@@ -87,18 +116,18 @@
 
           <!-- ISBN -->
           <div class="sm:col-span-3">
-            <label for="isbn" class="block text-sm font-medium text-gray-700">ISBN</label>
+            <label for="isbn" class="ui-label">ISBN</label>
             <div class="mt-1">
               <input
                 type="text"
                 id="isbn"
                 formControlName="isbn"
-                class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                class="ui-input"
                 [class.border-red-300]="isbn?.invalid && isbn?.touched"
                 placeholder="978-3-16-148410-0"
               />
             </div>
-            <p class="mt-1 text-xs text-gray-500">10-17 characters, digits and hyphens only</p>
+            <p class="ui-field-caption">10-17 characters, digits and hyphens only</p>
             <div *ngIf="isbn?.invalid && isbn?.touched" class="mt-1 text-sm text-red-600">
               <span *ngIf="isbn?.errors?.['pattern']">Invalid ISBN format</span>
             </div>
@@ -106,13 +135,13 @@
 
           <!-- Publisher -->
           <div class="sm:col-span-3">
-            <label for="publisher" class="block text-sm font-medium text-gray-700">Publisher</label>
+            <label for="publisher" class="ui-label">Publisher</label>
             <div class="mt-1">
               <input
                 type="text"
                 id="publisher"
                 formControlName="publisher"
-                class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                class="ui-input"
                 [class.border-red-300]="publisher?.invalid && publisher?.touched"
                 placeholder="Enter publisher name"
               />
@@ -124,7 +153,7 @@
 
           <!-- Publication Date -->
           <div class="sm:col-span-3">
-            <label for="publicationDate" class="block text-sm font-medium text-gray-700">
+            <label for="publicationDate" class="ui-label">
               Publication Date
             </label>
             <div class="mt-1">
@@ -132,20 +161,20 @@
                 type="date"
                 id="publicationDate"
                 formControlName="publicationDate"
-                class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                class="ui-input"
               />
             </div>
           </div>
 
           <!-- Availability -->
           <div class="sm:col-span-3">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Availability</label>
+            <label class="ui-label mb-2">Availability</label>
             <div class="flex items-center">
               <input
                 id="isAvailable"
                 type="checkbox"
                 formControlName="isAvailable"
-                class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                class="h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-4 focus:ring-primary-500/25"
               />
               <label for="isAvailable" class="ml-2 block text-sm text-gray-900">
                 Book is available
@@ -155,18 +184,18 @@
 
           <!-- Description -->
           <div class="sm:col-span-6">
-            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <label for="description" class="ui-label">Description</label>
             <div class="mt-1">
               <textarea
                 id="description"
                 formControlName="description"
                 rows="4"
-                class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                class="ui-textarea"
                 [class.border-red-300]="description?.invalid && description?.touched"
                 placeholder="Enter book description..."
               ></textarea>
             </div>
-            <p class="mt-1 text-xs text-gray-500">Maximum 2000 characters</p>
+            <p class="ui-field-caption">Maximum 2000 characters</p>
             <div *ngIf="description?.invalid && description?.touched" class="mt-1 text-sm text-red-600">
               <span *ngIf="description?.errors?.['maxlength']">Description cannot exceed 2000 characters</span>
             </div>

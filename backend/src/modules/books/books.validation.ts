@@ -13,6 +13,13 @@ export const createBookValidation = [
     .withMessage("Author is required")
     .isLength({ min: 1, max: 100 })
     .withMessage("Author must be between 1 and 100 characters"),
+  body("coverImageUrl")
+    .optional()
+    .trim()
+    .isURL({ require_protocol: true, protocols: ["http", "https"] })
+    .withMessage("Cover image URL must be a valid HTTP/HTTPS URL")
+    .isLength({ max: 500 })
+    .withMessage("Cover image URL cannot exceed 500 characters"),
   body("description")
     .optional()
     .trim()
@@ -61,6 +68,13 @@ export const updateBookValidation = [
     .withMessage("Author cannot be empty")
     .isLength({ min: 1, max: 100 })
     .withMessage("Author must be between 1 and 100 characters"),
+  body("coverImageUrl")
+    .optional()
+    .trim()
+    .isURL({ require_protocol: true, protocols: ["http", "https"] })
+    .withMessage("Cover image URL must be a valid HTTP/HTTPS URL")
+    .isLength({ max: 500 })
+    .withMessage("Cover image URL cannot exceed 500 characters"),
   body("description")
     .optional()
     .trim()

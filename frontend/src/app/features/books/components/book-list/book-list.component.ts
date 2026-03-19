@@ -14,6 +14,7 @@ import { ConfirmDialogService } from "../../../../shared/components/confirm-dial
 })
 export class BookListComponent implements OnInit, OnDestroy {
   books: Book[] = [];
+  viewMode: "table" | "cards" = "table";
   Math = Math;
   loading = false;
   filters: BookFilters = {
@@ -23,6 +24,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   total = 0;
   totalPages = 0;
   genres = GENRES;
+  private readonly viewModeStorageKey = "books-list-view-mode";
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
 
@@ -34,6 +36,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.loadViewMode();
     this.loadBooks();
     this.setupSearch();
   }
@@ -100,6 +103,11 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.router.navigate(["/books/create"]);
   }
 
+  setViewMode(mode: "table" | "cards"): void {
+    this.viewMode = mode;
+    localStorage.setItem(this.viewModeStorageKey, mode);
+  }
+
   onView(id: string): void {
     this.router.navigate(["/books", id]);
   }
@@ -159,5 +167,17 @@ export class BookListComponent implements OnInit, OnDestroy {
   formatDate(date: Date | undefined): string {
     if (!date) return "N/A";
     return new Date(date).toLocaleDateString();
+  }
+
+  private loadViewMode(): void {
+    const savedMode = localStorage.getItem(this.viewModeStorageKey);
+    const isMobileResolution = window.matchMedia("(max-width: 767px)").matches;
+
+    if (isMobileResolution) {
+      this.viewMode = "cards";
+      return;
+    }
+
+    this.viewMode = savedMode === "cards" ? "cards" : "table";
   }
 }

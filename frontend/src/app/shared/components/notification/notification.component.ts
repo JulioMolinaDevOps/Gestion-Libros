@@ -6,18 +6,35 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-notification',
   template: `
-    <div class="fixed top-4 right-4 z-50 space-y-2">
+    <div class="fixed bottom-4 right-4 left-4 sm:left-auto sm:w-[22rem] z-50 space-y-3">
       <div
         *ngFor="let notification of notifications"
         @slideIn
-        class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto overflow-hidden"
+        class="max-w-sm w-full rounded-xl border bg-white/95 backdrop-blur shadow-xl pointer-events-auto overflow-hidden transition-all"
+        [class.border-emerald-200]="notification.type === 'success'"
+        [class.border-red-200]="notification.type === 'error'"
+        [class.border-amber-200]="notification.type === 'warning'"
+        [class.border-blue-200]="notification.type === 'info'"
+        [class.dark:bg-gray-900]="true"
+        [class.dark:border-emerald-800]="notification.type === 'success'"
+        [class.dark:border-red-800]="notification.type === 'error'"
+        [class.dark:border-amber-800]="notification.type === 'warning'"
+        [class.dark:border-blue-800]="notification.type === 'info'"
       >
+        <div
+          class="h-1"
+          [class.bg-emerald-500]="notification.type === 'success'"
+          [class.bg-red-500]="notification.type === 'error'"
+          [class.bg-amber-500]="notification.type === 'warning'"
+          [class.bg-blue-500]="notification.type === 'info'"
+        ></div>
+
         <div class="p-4">
           <div class="flex items-start">
             <div class="flex-shrink-0">
               <svg
                 *ngIf="notification.type === 'success'"
-                class="h-6 w-6 text-green-400"
+                class="h-6 w-6 text-emerald-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -31,7 +48,7 @@ import { takeUntil } from 'rxjs/operators';
               </svg>
               <svg
                 *ngIf="notification.type === 'error'"
-                class="h-6 w-6 text-red-400"
+                class="h-6 w-6 text-red-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -45,7 +62,7 @@ import { takeUntil } from 'rxjs/operators';
               </svg>
               <svg
                 *ngIf="notification.type === 'warning'"
-                class="h-6 w-6 text-yellow-400"
+                class="h-6 w-6 text-amber-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -59,7 +76,7 @@ import { takeUntil } from 'rxjs/operators';
               </svg>
               <svg
                 *ngIf="notification.type === 'info'"
-                class="h-6 w-6 text-blue-400"
+                class="h-6 w-6 text-blue-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -73,12 +90,17 @@ import { takeUntil } from 'rxjs/operators';
               </svg>
             </div>
             <div class="ml-3 w-0 flex-1 pt-0.5">
-              <p class="text-sm font-medium text-gray-900">{{ notification.message }}</p>
+              <p class="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                {{ notification.title || 'Notification' }}
+              </p>
+              <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                {{ notification.message }}
+              </p>
             </div>
             <div class="ml-4 flex-shrink-0 flex">
               <button
                 (click)="remove(notification)"
-                class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none"
+                class="rounded-md inline-flex text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none"
               >
                 <span class="sr-only">Close</span>
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

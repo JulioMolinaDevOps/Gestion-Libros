@@ -191,4 +191,7 @@ ng build --configuration production
 
 ## License
 
+Julio Molina Redondo
+Diego Tique Ramirez
+
 MIT

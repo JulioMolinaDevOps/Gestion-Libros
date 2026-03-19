@@ -3,6 +3,7 @@ import { Document } from "mongoose";
 export interface IBook {
   title: string;
   author: string;
+  coverImageUrl?: string;
   description?: string;
   publicationDate?: Date;
   genre?: string;
@@ -34,6 +35,7 @@ export interface PaginatedBooksResult {
 export interface CreateBookInput {
   title: string;
   author: string;
+  coverImageUrl?: string;
   description?: string;
   publicationDate?: Date;
   genre?: string;
