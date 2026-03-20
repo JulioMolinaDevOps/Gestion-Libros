@@ -1,38 +1,38 @@
-# Book Management Application
+# Aplicacion de Gestion de Libros
 
-A full-stack CRUD application for managing books, built with Angular (frontend), Node.js/Express (backend), and MongoDB Atlas (database).
+Aplicacion CRUD full-stack para gestionar libros, construida con Angular (frontend), Node.js/Express (backend) y MongoDB Atlas (base de datos).
 
-## Architecture
+## Arquitectura
 
 ```
 book-management-app/
-├── backend/          # Express + TypeScript API
-├── frontend/         # Angular + TailwindCSS SPA
+├── backend/          # API con Express + TypeScript
+├── frontend/         # SPA con Angular + TailwindCSS
 └── docker-compose.yml
 ```
 
-## Prerequisites
+## Prerrequisitos
 
 - Node.js 20+
-- MongoDB Atlas account (or local MongoDB)
-- Docker & Docker Compose (optional)
+- Cuenta de MongoDB Atlas (o MongoDB local)
+- Docker y Docker Compose (opcional)
 
-## Quick Start
+## Inicio Rapido
 
-### Using Docker Compose
+### Usando Docker Compose
 
-1. Clone the repository
-2. Create a `.env` file in the root directory:
+1. Clona el repositorio.
+2. Crea un archivo `.env` en la raiz del proyecto:
    ```
    MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/book-management
    ```
-3. Run:
+3. Ejecuta:
    ```bash
    docker-compose up --build
    ```
-4. Access the application at `http://localhost`
+4. Accede a la aplicacion en `http://localhost`.
 
-### Local Development
+### Desarrollo Local
 
 #### Backend
 
@@ -40,14 +40,14 @@ book-management-app/
 cd backend
 npm install
 
-# Create .env file
+# Crear archivo .env
 cp .env.example .env
-# Edit .env with your MongoDB URI
+# Editar .env con tu URI de MongoDB
 
 npm run dev
 ```
 
-The API will be available at `http://localhost:3000`
+La API estara disponible en `http://localhost:3000`.
 
 #### Frontend
 
@@ -57,89 +57,89 @@ npm install
 ng serve
 ```
 
-The application will be available at `http://localhost:4200`
+La aplicacion estara disponible en `http://localhost:4200`.
 
-## API Endpoints
+## Endpoints de la API
 
-| Method | Endpoint | Description |
+| Metodo | Endpoint | Descripcion |
 |--------|----------|-------------|
-| GET | `/api/books` | List all books (with pagination, filters) |
-| POST | `/api/books` | Create a new book |
-| GET | `/api/books/:id` | Get a specific book |
-| PUT | `/api/books/:id` | Update a book |
-| DELETE | `/api/books/:id` | Delete a book |
-| GET | `/api/books/search?q=query` | Search books |
+| GET | `/api/books` | Lista todos los libros (con paginacion y filtros) |
+| POST | `/api/books` | Crea un nuevo libro |
+| GET | `/api/books/:id` | Obtiene un libro especifico |
+| PUT | `/api/books/:id` | Actualiza un libro |
+| DELETE | `/api/books/:id` | Elimina un libro |
+| GET | `/api/books/search?q=query` | Busca libros |
 
-### Query Parameters for GET /api/books
+### Parametros de Consulta para GET /api/books
 
-- `page` - Page number (default: 1)
-- `limit` - Items per page (default: 10, max: 100)
-- `genre` - Filter by genre
-- `isAvailable` - Filter by availability (true/false)
-- `search` - Search by title or author
+- `page` - Numero de pagina (por defecto: 1)
+- `limit` - Elementos por pagina (por defecto: 10, maximo: 100)
+- `genre` - Filtro por genero
+- `isAvailable` - Filtro por disponibilidad (true/false)
+- `search` - Busqueda por titulo o autor
 
-## Features
+## Caracteristicas
 
 ### Backend
-- RESTful API with Express.js
-- TypeScript for type safety
-- MongoDB with Mongoose ODM
-- Input validation with express-validator
-- Error handling middleware
-- Security headers with Helmet
-- Request logging with Morgan
-- Winston logger
+- API RESTful con Express.js
+- TypeScript para seguridad de tipos
+- MongoDB con Mongoose ODM
+- Validacion de entrada con express-validator
+- Middleware de manejo de errores
+- Encabezados de seguridad con Helmet
+- Registro de solicitudes con Morgan
+- Logger con Winston
 
 ### Frontend
-- Angular 17 with standalone components
-- Reactive forms with validation
-- TailwindCSS for styling
-- Responsive design
-- Loading states and error handling
-- Toast notifications
-- Confirmation dialogs
-- Pagination
-- Search and filters
+- Angular 17 con componentes standalone
+- Formularios reactivos con validacion
+- TailwindCSS para estilos
+- Diseno responsivo
+- Estados de carga y manejo de errores
+- Notificaciones tipo toast
+- Dialogos de confirmacion
+- Paginacion
+- Busqueda y filtros
 
-## Project Structure
+## Estructura del Proyecto
 
 ### Backend
 ```
 backend/src/
-├── config/         # Database, env, logger
-├── middlewares/    # Error handler, validator
+├── config/         # Base de datos, variables de entorno, logger
+├── middlewares/    # Manejador de errores, validador
 ├── modules/
-│   └── books/      # Book module (controller, service, model, routes, validation)
-├── utils/          # Response helpers
-└── app.ts          # Entry point
+│   └── books/      # Modulo de libros (controller, service, model, routes, validation)
+├── utils/          # Helpers de respuesta
+└── app.ts          # Punto de entrada
 ```
 
 ### Frontend
 ```
 frontend/src/app/
-├── core/           # Services, models, interceptors
+├── core/           # Servicios, modelos, interceptores
 ├── features/
-│   └── books/      # Book feature module
+│   └── books/      # Modulo funcional de libros
 │       ├── components/
 │       │   ├── book-list/
 │       │   ├── book-form/
 │       │   └── book-detail/
 │       ├── books.module.ts
 │       └── books-routing.module.ts
-├── shared/         # Reusable components
+├── shared/         # Componentes reutilizables
 └── app.module.ts
 ```
 
-## Environment Variables
+## Variables de Entorno
 
 ### Backend
-- `PORT` - Server port (default: 3000)
-- `NODE_ENV` - Environment (development/production)
-- `MONGODB_URI` - MongoDB connection string
-- `CORS_ORIGIN` - Allowed CORS origin
-- `LOG_LEVEL` - Logging level
+- `PORT` - Puerto del servidor (por defecto: 3000)
+- `NODE_ENV` - Entorno (development/production)
+- `MONGODB_URI` - Cadena de conexion a MongoDB
+- `CORS_ORIGIN` - Origen permitido para CORS
+- `LOG_LEVEL` - Nivel de logging
 
-## Technologies
+## Tecnologias
 
 ### Backend
 - Node.js 20
@@ -159,9 +159,9 @@ frontend/src/app/
 - RxJS 7
 - Angular Animations
 
-## Development
+## Desarrollo
 
-### Running Tests
+### Ejecutar Tests
 
 Backend:
 ```bash
@@ -175,7 +175,7 @@ cd frontend
 ng test
 ```
 
-### Building for Production
+### Compilar para Produccion
 
 Backend:
 ```bash
@@ -189,9 +189,9 @@ cd frontend
 ng build --configuration production
 ```
 
-## License
+## Licencia
 
-Julio Molina Redondo
+Julio Molina Redondo  
 Diego Tique Ramirez
 
 MIT
